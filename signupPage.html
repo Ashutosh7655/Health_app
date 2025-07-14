@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HealthHub - Sign Up</title>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter:wght@400;500;700;900&amp;family=Noto+Sans:wght@400;500;700;900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<style type="text/tailwindcss">
+      :root {
+        --primary-color: #0c77f2;
+        --background-color: #f8fafc;
+        --card-background-color: #ffffff;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --input-border-color: #cbd5e1;
+        --input-focus-border-color: #0c77f2;
+      }
+      body {
+        font-family: 'Inter', 'Noto Sans', sans-serif;
+        background-color: var(--background-color);
+      }
+    </style>
+</head>
+<body class="antialiased">
+<div class="relative flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+<div class="z-10 w-full max-w-md space-y-8">
+<div>
+<div class="mx-auto flex h-12 w-auto items-center justify-center">
+
+<span class="material-icons-outlined text-6xl text-blue-600">health_and_safety</span>
+</div>
+<h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Create your HealthTrack account</h2>
+<p class="mt-2 text-center text-sm text-gray-600">
+            Already have an account?
+            <a class="font-medium text-[var(--primary-color)] hover:text-blue-500" href="Landingpage.html">Sign in</a>
+</p>
+</div>
+<div class="rounded-xl bg-white p-8 shadow-lg">
+<form action="#" class="space-y-6" method="POST" onsubmit="redirectUser(event)">
+<div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+<div class="sm:col-span-3">
+<label class="block text-sm font-medium text-gray-700" for="full-name">Full Name</label>
+<div class="mt-1">
+<input autocomplete="name" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] sm:text-sm" id="full-name" name="full-name" placeholder="John Doe" type="text"/>
+</div>
+</div>
+<div class="sm:col-span-3">
+<label class="block text-sm font-medium text-gray-700" for="email-address">Email address</label>
+<div class="mt-1">
+<input autocomplete="email" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] sm:text-sm" id="email-address" name="email" placeholder="you@example.com" type="email"/>
+</div>
+</div>
+<div class="sm:col-span-6">
+<label class="block text-sm font-medium text-gray-700" for="phone-number">Phone Number</label>
+<div class="mt-1">
+<input autocomplete="tel" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] sm:text-sm" id="phone-number" name="phone-number" placeholder="+1 (555) 987-6543" type="tel"/>
+</div>
+</div>
+<div class="sm:col-span-6">
+<label class="block text-sm font-medium text-gray-700" for="password">Password</label>
+<div class="mt-1">
+<input autocomplete="new-password" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] sm:text-sm" id="password" name="password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<div class="sm:col-span-6">
+<label class="block text-sm font-medium text-gray-700" for="confirm-password">Confirm Password</label>
+<div class="mt-1">
+<input autocomplete="new-password" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] sm:text-sm" id="confirm-password" name="confirm-password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<div class="flex-shrink-0">
+<img alt="Avatar placeholder" class="h-12 w-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXfArDwO4WgLFS2OIip2zXrvQpgW0Oo1LxGNQE7kEQfwi5GPfWuJgSrclNcJjeO5vDAReXUVYfqLb8uB9LUor_f4NX9eZjTH2NgekPAyVHDXHpF6n42hCU7UAuwKwEw9bnr5W3BNEC9iTOdDBhsgo7OEIOB7ZazQa7drsUKpPjzUOGxGIi8qNSbCxoQ-Eb6W-W0Jnlr7w7SwSvn0Ihf13Pt1vqQtK2xi3WTfMcrdGw1Rp2u3koDXrgcAdpeGM-I0EHOrre1pX4H0g"/>
+</div>
+<div class="flex-1">
+<label class="cursor-pointer" for="avatar-upload">
+<span class="block text-sm font-medium text-gray-700">Avatar</span>
+<span class="mt-1 block rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-offset-2">Upload a file</span>
+<input class="sr-only" id="avatar-upload" name="avatar-upload" type="file"/>
+</label>
+</div>
+</div>
+<div>
+<button class="flex w-full justify-center rounded-md border border-transparent bg-[var(--primary-color)] py-3 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" type="submit">
+                Sign Up
+              </button>
+</div>
+</form>
+<script>
+  function redirectUser(event) {
+    event.preventDefault();
+    window.location.href = "Landingpage.html"; // redirect
+  }
+</script>
+</div>
+</div>
+</div>
+
+</body></html>
