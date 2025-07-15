@@ -71,7 +71,7 @@
 <div class="mx-auto max-w-4xl py-8 px-4 sm:px-6 lg:px-8">
 <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
 <h2 class="text-3xl font-bold tracking-tight">Health History</h2>
-<button class="btn-primary flex items-center gap-2 rounded-md py-2 px-4 text-sm font-semibold shadow-sm">
+<button onclick="openDetailspage()" class="btn-primary flex items-center gap-2 rounded-md py-2 px-4 text-sm font-semibold shadow-sm">
 <span class="material-icons-outlined text-base">add</span>
 <span>Add New Entry</span>
 </button>
@@ -226,6 +226,9 @@
     alert('Delete confirmed');
     deleteTarget.remove();
     closeDeleteModal();
+  }
+  function openDetailspage() {
+    window.location.href = "add_details.html"; // Redirect to add details page
   }
 </script>
 
