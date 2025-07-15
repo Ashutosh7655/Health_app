@@ -3,6 +3,8 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Health App Login</title>
+<meta name="description" content="Login to manage your health history with the Health App.">
+<meta name="name" content="Health App">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -47,15 +49,39 @@
 <a class="text-sm font-medium text-[var(--brand-primary)] hover:underline" href="forgot_password.html">Forgot Password?</a>
 </div>
 <div>
-<button class="w-full rounded-md bg-[var(--brand-primary)] px-4 py-4 text-lg font-bold text-white transition hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)] focus:ring-offset-2" type="submit">Login</button>
+<button onclick="redirectUser(event)" class="w-full rounded-md bg-[var(--brand-primary)] px-4 py-4 text-lg font-bold text-white transition hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)] focus:ring-offset-2" type="submit">Login</button>
 </div>
 </form>
 <script>
-  function redirectUser(event) {
+  async function redirectUser(event) {
     event.preventDefault();
-    window.location.href = "HomePage.html"; // redirect
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        //localStorage.setItem("token", data.token); // optional
+        window.location.href = "HomePage.html";
+      } else {
+        alert(data.message || "Login failed.");
+      }
+    } catch (err) {
+      alert("Error: " + err.message);
+    }
   }
 </script>
+
 <div class="mt-8 text-center">
 <p class="text-[var(--text-secondary)]">
             Don't have an account?
