@@ -76,15 +76,16 @@ router.get('/profile', ensureAuthenticated, async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+// PUT /api/auth/profile
 router.put('/profile', ensureAuthenticated, async (req, res) => {
   try {
-    const userId = req.user.userId;
+    const userId = req.user.userId; // from JWT middleware
 
     const updates = {
       phone: req.body.phone,
       age: req.body.age,
       gender: req.body.gender,
-      emergencyContact: req.body.emergencyContact
+      emergencyContact: req.body.emergencyContact,
     };
 
     const updatedUser = await User.findByIdAndUpdate(userId, updates, { new: true });
@@ -93,10 +94,10 @@ router.put('/profile', ensureAuthenticated, async (req, res) => {
       return res.status(404).json({ message: "User not found." });
     }
 
-    res.status(200).json({ message: "Profile updated", user: updatedUser });
-  } catch (err) {
-    console.error("Update error:", err);
-    res.status(500).json({ message: "Server error during profile update." });
+    res.status(200).json({ message: "Profile updated successfully!", user: updatedUser });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
