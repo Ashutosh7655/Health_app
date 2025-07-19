@@ -143,54 +143,48 @@
 </div>
 </div>
 </div>
-<script>
-  function logoutUser() {
-    // Logic to handle user logout
-    alert("You have been logged out.");
-    window.location.href = "index.html"; // Redirect to login page
-  }
-  function cancelChanges() {
-    // Logic to handle canceling changes
-    if (confirm("Are you sure you want to discard changes?")) {
-      if(yes) {
-        document.querySelector('form').reset(); // Reset the form
-        alert("Changes discarded.");
-      }
-      else {
-        alert("Changes not discarded.");
-      }
-    }
-  }
-  
-  </script>
+
 </main>
 </div>
+
 <script>
+  function logoutUser() {
+    localStorage.removeItem("token");
+    alert("You have been logged out.");
+    window.location.href = "index.html";
+  }
+
+  function cancelChanges() {
+    if (confirm("Are you sure you want to discard changes?")) {
+      document.querySelector("form").reset();
+      alert("Changes discarded.");
+    }
+  }
+
   window.onload = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
       alert("You must be logged in.");
-      window.location.href = "index.html"; // redirect to login
+      window.location.href = "index.html";
       return;
     }
 
     try {
       const res = await fetch("https://health-app-s67i.onrender.com/api/auth/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
-      if (!res.ok) {
-        throw new Error("Unauthorized");
-      }
+      if (!res.ok) throw new Error("Unauthorized");
 
       const user = await res.json();
 
-      // 👇 Fill profile fields with user data
-      document.getElementById("name").value = user.name;
-      document.getElementById("email").value = user.email;
-      document.getElementById("phone-number").value = user.phone;
+      // ✅ Fill all fields (use fallback value if null/undefined)
+      document.getElementById("name").value = user.name || "";
+      document.getElementById("email").value = user.email || "";
+      document.getElementById("phone-number").value = user.phone || "";
+      document.getElementById("age").value = user.age || "";
+      document.getElementById("gender").value = user.gender || "";
+      document.getElementById("emergency-contact").value = user.emergencyContact || "";
 
     } catch (err) {
       alert("Error fetching profile. Please log in again.");
@@ -198,8 +192,7 @@
       window.location.href = "index.html";
     }
   };
-</script>
-<script>
+
   const form = document.querySelector("form");
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -210,7 +203,7 @@
       phone: document.getElementById("phone-number").value,
       age: document.getElementById("age").value,
       gender: document.getElementById("gender").value,
-      emergencyContact: document.getElementById("emergency-contact").value
+      emergencyContact: document.getElementById("emergency-contact").value,
     };
 
     try {
@@ -224,14 +217,17 @@
       });
 
       if (res.ok) {
-        alert("Profile updated successfully!");
+        alert("✅ Profile updated successfully!");
+        // Refresh data
+        window.onload(); // re-call the function to refill data
       } else {
-        alert("Failed to update profile.");
+        alert("❌ Failed to update profile.");
       }
     } catch (err) {
       alert("Error: " + err.message);
     }
   });
 </script>
+
 
 </body></html>
