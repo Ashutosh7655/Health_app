@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ensureAuthenticated = require('../Middleware/ensureAuthenticated.js/index.js');
+const ensureAuthenticated = require('../middleware/Auth');
 const bcrypt = require('bcryptjs');
 const User = require('../Models/User.js'); // ✅ Ensure this exists
 
@@ -32,6 +32,8 @@ router.post('/register', async (req, res) => {
     res.status(500).json({ error: "Server Error" });
   }
 });
+const jwt = require('jsonwebtoken'); // make sure this is at the top if not already
+
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -46,13 +48,35 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: "Invalid email or password" });
     }
 
-    res.json({ message: "Login successful" });
+    // ✅ Generate JWT token
+    const token = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.json({ message: "Login successful", token });
 
   } catch (err) {
     console.error("❌ Login Error:", err.message);
     res.status(500).json({ error: "Server Error" });
   }
 });
+ // ✅ middleware// your user model
+
+// ✅ PROTECTED PROFILE ROUTE
+router.get('/profile', ensureAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select('-password');
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.json(user);
+  } catch (err) {
+    console.error('❌ Profile Fetch Error:', err.message);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 
 
 module.exports = router;
