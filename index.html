@@ -71,7 +71,7 @@
       const data = await response.json();
 
       if (response.ok) {
-        //localStorage.setItem("token", data.token); // optional
+        localStorage.setItem("token", data.token); // optional
         window.location.href = "HomePage.html";
       } else {
         alert(data.message || "Login failed.");

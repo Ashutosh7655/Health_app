@@ -60,7 +60,10 @@
 </header>
 <main class="flex flex-1 justify-center py-10 px-4 sm:px-6 lg:px-8">
 <div class="w-full max-w-2xl text-center">
-<h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-8">Welcome back</h2>
+<h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-8">
+  Welcome back, <span id="welcome-user" class="font-semibold text-blue-700"></span>
+</h2>
+
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 <a class="group flex flex-col items-center justify-center rounded-lg bg-[var(--primary-color)] text-white p-6 shadow-sm transition-all duration-300 hover:bg-[var(--primary-hover-color)] hover:-translate-y-1" href="add_details.html">
 <span class="material-icons text-4xl mb-2">add_circle_outline</span>
@@ -118,5 +121,25 @@
 </div>
 </div>
 </div>
+<script>
+window.onload = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  try {
+    const res = await fetch("https://health-app-s67i.onrender.com/api/auth/profile", {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    if (res.ok) {
+      const user = await res.json();
+      document.getElementById("welcome-user").innerText = user.name;
+
+    }
+  } catch (err) {
+    console.error("Failed to fetch user", err);
+  }
+};
+</script>
 
 </body></html>

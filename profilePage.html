@@ -165,5 +165,39 @@
   </script>
 </main>
 </div>
+<script>
+  window.onload = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("You must be logged in.");
+      window.location.href = "index.html"; // redirect to login
+      return;
+    }
+
+    try {
+      const res = await fetch("https://health-app-s67i.onrender.com/api/auth/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Unauthorized");
+      }
+
+      const user = await res.json();
+
+      // 👇 Fill profile fields with user data
+      document.getElementById("name").value = user.name;
+      document.getElementById("email").value = user.email;
+      document.getElementById("phone-number").value = user.phone;
+
+    } catch (err) {
+      alert("Error fetching profile. Please log in again.");
+      localStorage.removeItem("token");
+      window.location.href = "index.html";
+    }
+  };
+</script>
 
 </body></html>
