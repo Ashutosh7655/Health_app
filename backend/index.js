@@ -7,10 +7,11 @@ const app = express();
 
 // ✅ Middleware
 app.use(cors({
-  origin: "https://health-app-git-jwt-version-ashurosh-mishras-projects.vercel.app",
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: '*', // or '*' for testing
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(express.json());
 
 // ✅ Connect to MongoDB
