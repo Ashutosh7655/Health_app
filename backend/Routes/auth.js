@@ -76,6 +76,21 @@ router.get('/profile', ensureAuthenticated, async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+router.put('/profile', authMiddleware, async (req, res) => {
+  const userId = req.user.id;
+  const { phone, age, gender, emergencyContact } = req.body;
+
+  try {
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { phone, age, gender, emergencyContact },
+      { new: true }
+    );
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to update profile" });
+  }
+});
 
 
 

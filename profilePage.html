@@ -199,5 +199,39 @@
     }
   };
 </script>
+<script>
+  const form = document.querySelector("form");
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+
+    const updatedData = {
+      phone: document.getElementById("phone-number").value,
+      age: document.getElementById("age").value,
+      gender: document.getElementById("gender").value,
+      emergencyContact: document.getElementById("emergency-contact").value
+    };
+
+    try {
+      const res = await fetch("https://health-app-s67i.onrender.com/api/auth/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(updatedData)
+      });
+
+      if (res.ok) {
+        alert("Profile updated successfully!");
+      } else {
+        alert("Failed to update profile.");
+      }
+    } catch (err) {
+      alert("Error: " + err.message);
+    }
+  });
+</script>
 
 </body></html>
