@@ -82,6 +82,7 @@ router.put('/profile', ensureAuthenticated, async (req, res) => {
     const userId = req.user.userId; // from JWT middleware
 
     const updates = {
+      name: req.body.name,
       phone: req.body.phone,
       age: req.body.age,
       gender: req.body.gender,
