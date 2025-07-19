@@ -88,8 +88,10 @@ router.put('/profile', ensureAuthenticated, async (req, res) => {
       gender: req.body.gender,
       emergencyContact: req.body.emergencyContact,
     };
+    console.log("➡️ Updating user:", userId, updates);
 
     const updatedUser = await User.findByIdAndUpdate(userId, updates, { new: true });
+console.log("✅ Updated user:", updatedUser);
 
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found." });
