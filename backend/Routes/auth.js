@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ensureAuthenticated = require('../middleware/Auth');
+const ensureAuthenticated = require('../Middleware/Auth');
 const bcrypt = require('bcryptjs');
 const User = require('../Models/User.js'); // ✅ Ensure this exists
 
