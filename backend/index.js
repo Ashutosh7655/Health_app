@@ -9,7 +9,7 @@ const app = express();
 
 // ✅ Middleware
 app.use(cors({
-  origin: '*', // or '*' for testing
+  origin: 'https://health-app-zeta-cyan.vercel.app', // or '*' for testing
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
