@@ -4,6 +4,8 @@ const ensureAuthenticated = require('../Middlewares/Auth.js');
 const bcrypt = require('bcryptjs');
 const User = require('../Models/User.js'); // ✅ Ensure this exists
 const HealthRecord = require('../Models/HealthRecord.js');
+const cloudinary = require('../utils/cloudinary');
+const upload = require('../Middlewares/multer.js');
 // Register route
 router.post('/register', async (req, res) => {
   try {
@@ -150,5 +152,28 @@ router.delete('/record/:id', ensureAuthenticated, async (req, res) => {
   }
 });
 
+// POST /api/auth/upload-avatar
+router.post('/upload-avatar', ensureAuthenticated, upload.single('avatar'), async (req, res) => {
+  try {
+    const result = await cloudinary.uploader.upload_stream(
+      { folder: 'avatars' },
+      async (error, result) => {
+        if (error) return res.status(500).json({ error: error.message });
 
+        // Save URL to user
+        const updatedUser = await User.findByIdAndUpdate(
+          req.user.userId,
+          { avatar: result.secure_url },
+          { new: true }
+        );
+
+        res.json({ message: 'Avatar uploaded successfully', avatar: result.secure_url, user: updatedUser });
+      }
+    );
+
+    result.end(req.file.buffer);
+  } catch (err) {
+    res.status(500).json({ error: 'Server Error' });
+  }
+});
 module.exports = router;

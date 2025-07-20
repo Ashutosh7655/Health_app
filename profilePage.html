@@ -66,12 +66,12 @@
 <p class="mt-2 text-lg text-neutral-600">Manage your personal information and account settings.</p>
 </div>
 <div class="rounded-lg bg-white p-6 shadow-sm sm:p-8">
-<form action="" class="space-y-6" method="POST">
+<form action="" class="space-y-6" method="POST" id="avatar-form">
 <div class="flex items-center gap-6">
 <img alt="User avatar" class="h-20 w-20 rounded-full" src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg"/>
 <div>
-<label class="cursor-pointer rounded-md bg-white px-3 py-2 text-sm font-semibold text-primary-600 shadow-sm ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50" for="avatar-upload"> Change </label>
-<input class="sr-only" id="avatar-upload" name="avatar-upload" type="file"/>
+<label class="cursor-pointer rounded-md bg-white px-3 py-2 text-sm font-semibold text-primary-600 shadow-sm ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50" for="avatar"> Change </label>
+<input class="sr-only" id="avatar" name="avatar" type="file" accept="image/*"/>
 <p class="mt-2 text-xs text-neutral-400">JPG, GIF or PNG. 1MB max.</p>
 </div>
 </div>
@@ -232,6 +232,39 @@
     }
   });
 </script>
+
+<form id="avatarForm">
+  <input type="file" name="avatar" accept="image/*" required>
+  <button type="submit">Upload Avatar</button>
+</form>
+
+<script>
+  document.getElementById('avatarForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const formData = new FormData();
+    const fileInput = document.querySelector('input[name="avatar"]');
+    formData.append('avatar', fileInput.files[0]);
+
+    const token = localStorage.getItem('token');
+    const res = await fetch('https://health-app-s67i.onrender.com/api/auth/upload-avatar', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: formData
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      alert('Avatar uploaded!');
+      // Show image:
+      document.getElementById('userAvatar').src = data.avatar;
+    } else {
+      alert(data.error || 'Upload failed');
+    }
+  });
+</script>
+<img id="userAvatar" src="default.png" alt="User Avatar" width="100">
 
 
 </body></html>

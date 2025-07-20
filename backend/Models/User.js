@@ -21,6 +21,11 @@ const UserSchema = new mongoose.Schema({
     enum: ['Male', 'Female', 'Other', 'Prefer not to say'],
   },
   emergencyContact: String,
+  avatar: {
+  type: String,
+  default: '' // or a placeholder image URL
+}
+
 });
 
 module.exports = mongoose.model('User', UserSchema);
