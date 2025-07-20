@@ -1,236 +1,212 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Health History</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<style type="text/tailwindcss">
-        :root {
-            --primary-color: #0c77f2;
-            --primary-hover-color: #0a63ce;
-            --background-color: #f8fafc;
-            --card-background-color: #ffffff;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --border-color: #e2e8f0;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background-color);
-        }
-        /* Removed @apply usage; use Tailwind classes directly in HTML elements instead */
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-            transition-property: background-color, color;
-            transition-duration: 300ms;
-        }
-        .btn-primary:hover {
-            background-color: var(--primary-hover-color);
-        }
-        .btn-icon {
-            color: var(--text-secondary);
-            transition-property: color;
-            transition-duration: 300ms;
-        }
-        .btn-icon:hover {
-            color: var(--primary-color);
-        }
-    </style>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health History</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <style type="text/tailwindcss">
+    :root {
+      --primary-color: #0c77f2;
+      --primary-hover-color: #0a63ce;
+      --background-color: #f8fafc;
+      --card-background-color: #ffffff;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --border-color: #e2e8f0;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--background-color);
+    }
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+      transition-property: background-color, color;
+      transition-duration: 300ms;
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-hover-color);
+    }
+    .btn-icon {
+      color: var(--text-secondary);
+      transition-property: color;
+      transition-duration: 300ms;
+    }
+    .btn-icon:hover {
+      color: var(--primary-color);
+    }
+  </style>
 </head>
-<body class="text-[var(--text-primary)]">
-<div class="flex min-h-screen flex-col">
-<header class="sticky top-0 z-10 w-full border-b border-[var(--border-color)] bg-[var(--card-background-color)] shadow-sm">
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-<div class="flex h-16 items-center justify-between">
-<div class="flex items-center gap-4">
-<span class="material-icons-outlined text-3xl text-[var(--primary-color)]">health_and_safety</span>
-<a href="HomePage.html"><h1 class="text-xl font-bold text-blue-600">HealthTrack</h1></a>
-</div>
-<nav class="hidden items-center gap-8 md:flex">
-<a class="text-sm font-medium text-[var(--text-primary)] hover:text-[var(--primary-color)]" href="HomePage.html">Dashboard</a>
-<a class="text-sm font-medium text-[var(--text-primary)] hover:text-[var(--primary-color)]" href="AppointmentsPage.html">Appointments</a>
-<a class="text-sm font-medium text-[var(--text-primary)] hover:text-[var(--primary-color)]" href="MessagesPage.html">Messages</a>
-</nav>
-<div class="flex items-center gap-4">
-<button class="btn-icon rounded-full p-2">
-<span class="material-icons-outlined">notifications</span>
-</button>
-<button onclick="redirectUser(event)"">
-<img alt="User avatar" class="size-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYWp-Q467LHq-RI2deIeVpzuaSp76IJ_hTVQ4uO3TzX7Ay97wUDdFdaDzox5SoHToYxrZmkYhrAMnTUS_VZ_ZavhbvfAV92NrjqlHCeWKRjXm1UH2TIaIs6yAXIN9Ln8D5v7D4kPBsnR9JgCaV__oGqRafNjYfeh8Q38yCUvKHXMatX6KoS5lQnIRne7-_Rj-BwSKBWh0HE7VMWXO_WK4Pc66QzKMHfU9JDPDn3JJehumnOgMDsygVg4phKO-aZdWeQIqVoGwT4Qk"/>
-</button>
-</div>
-</div>
-</div>
-</header>
-<main class="flex-grow">
-<div class="mx-auto max-w-4xl py-8 px-4 sm:px-6 lg:px-8">
-<div class="mb-8 flex flex-wrap items-center justify-between gap-4">
-<h2 class="text-3xl font-bold tracking-tight">Health History</h2>
-<button onclick="openDetailspage()" class="btn-primary flex items-center gap-2 rounded-md py-2 px-4 text-sm font-semibold shadow-sm">
-<span class="material-icons-outlined text-base">add</span>
-<span>Add New Entry</span>
-</button>
-</div>
-<div class="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:h-full before:w-0.5 before:bg-[var(--border-color)]">
-<div class="relative flex items-start gap-6">
-<div class="z-10 flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--primary-color)] text-white">
-<span class="material-icons-outlined">description</span>
-</div>
-<div class="flex-1 rounded-md border border-[var(--border-color)] bg-[var(--card-background-color)] p-4 shadow-sm">
-<div class="flex items-center justify-between">
-<div>
-<p class="text-lg font-semibold">Routine Checkup</p>
-<p class="text-sm text-[var(--text-secondary)]">2023-08-15</p>
-</div>
-<div class="flex items-center gap-2">
-<button class="btn-icon rounded-md p-1.5"><span class="material-icons-outlined text-xl">visibility</span></button>
-<button class="btn-icon rounded-md p-1.5"><span class="material-icons-outlined text-xl">edit</span></button>
-<button onclick="showDeleteModal(this)" class="btn-icon text-red-500 hover:text-red-700 rounded-md p-1.5"><span class="material-icons-outlined text-xl">delete</span></button>
-</div>
-</div>
-</div>
-</div>
-<div class="relative flex items-start gap-6">
-<div class="z-10 flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--primary-color)] text-white">
-<span class="material-icons-outlined">image</span>
-</div>
-<div class="flex-1 rounded-md border border-[var(--border-color)] bg-[var(--card-background-color)] p-4 shadow-sm">
-<div class="flex items-center justify-between">
-<div>
-<p class="text-lg font-semibold">Allergy Test</p>
-<p class="text-sm text-[var(--text-secondary)]">2023-07-22</p>
-</div>
-<div class="flex items-center gap-2">
-<button class="btn-icon rounded-md p-1.5"><span class="material-icons-outlined text-xl">visibility</span></button>
-<button class="btn-icon rounded-md p-1.5"><span class="material-icons-outlined text-xl">edit</span></button>
-<button onclick="showDeleteModal(this)" class="btn-icon text-red-500 hover:text-red-700 rounded-md p-1.5"><span class="material-icons-outlined text-xl">delete</span></button>
-</div>
-</div>
-</div>
-</div>
-<div class="relative flex items-start gap-6">
-<div class="z-10 flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--primary-color)] text-white">
-<span class="material-icons-outlined">vaccines</span>
-</div>
-<div class="flex-1 rounded-md border border-[var(--border-color)] bg-[var(--card-background-color)] p-4 shadow-sm">
-<div class="flex items-center justify-between">
-<div>
-<p class="text-lg font-semibold">Vaccination</p>
-<p class="text-sm text-[var(--text-secondary)]">2023-06-10</p>
-</div>
-<div class="flex items-center gap-2">
-<button class="btn-icon rounded-md p-1.5"><span class="material-icons-outlined text-xl">visibility</span></button>
-<button class="btn-icon rounded-md p-1.5"><span class="material-icons-outlined text-xl">edit</span></button>
-<button onclick="showDeleteModal(this)" class="btn-icon text-red-500 hover:text-red-700 rounded-md p-1.5"><span class="material-icons-outlined text-xl">delete</span></button>
-</div>
-</div>
-</div>
-</div>
-<div class="relative flex items-start gap-6">
-<div class="z-10 flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--primary-color)] text-white">
-<span class="material-icons-outlined">mic</span>
-</div>
-<div class="flex-1 rounded-md border border-[var(--border-color)] bg-[var(--card-background-color)] p-4 shadow-sm">
-<div class="flex items-center justify-between">
-<div>
-<p class="text-lg font-semibold">Consultation Notes</p>
-<p class="text-sm text-[var(--text-secondary)]">2023-05-18</p>
-</div>
-<div class="flex items-center gap-2">
-<button class="btn-icon rounded-md p-1.5"><span class="material-icons-outlined text-xl">play_arrow</span></button>
-<button class="btn-icon rounded-md p-1.5"><span class="material-icons-outlined text-xl">edit</span></button>
-<button onclick="showDeleteModal(this)" class="btn-icon text-red-500 hover:text-red-700 rounded-md p-1.5"><span class="material-icons-outlined text-xl">delete</span></button>
-</div>
-</div>
-</div>
-</div>
-<div class="relative flex items-start gap-6">
-<div class="z-10 flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--primary-color)] text-white">
-<span class="material-icons-outlined">bloodtype</span>
-</div>
-<div class="flex-1 rounded-md border border-[var(--border-color)] bg-[var(--card-background-color)] p-4 shadow-sm">
-<div class="flex items-center justify-between">
-<div>
-<p class="text-lg font-semibold">Blood Test</p>
-<p class="text-sm text-[var(--text-secondary)]">2023-04-18</p>
-</div>
-<div class="flex items-center gap-2">
-<button class="btn-icon rounded-md p-1.5"><span class="material-icons-outlined text-xl">visibility</span></button>
-<button class="btn-icon rounded-md p-1.5"><span class="material-icons-outlined text-xl">edit</span></button>
-<button onclick="showDeleteModal(this)" class="btn-icon text-red-500 hover:text-red-700 rounded-md p-1.5"><span class="material-icons-outlined text-xl">delete</span></button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="mt-8 flex justify-center">
-<nav aria-label="Pagination" class="isolate inline-flex -space-x-px rounded-md shadow-sm">
-<a class="relative inline-flex items-center rounded-l-md px-2 py-2 text-[var(--text-secondary)] ring-1 ring-inset ring-[var(--border-color)] hover:bg-gray-50 focus:z-20 focus:outline-offset-0" href="#">
-<span class="sr-only">Previous</span>
-<span aria-hidden="true" class="material-icons-outlined">chevron_left</span>
-</a>
-<a aria-current="page" class="relative z-10 inline-flex items-center bg-[var(--primary-color)] px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary-color)]" href="#">1</a>
-<a class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-[var(--text-primary)] ring-1 ring-inset ring-[var(--border-color)] hover:bg-gray-50 focus:z-20 focus:outline-offset-0" href="#">2</a>
-<a class="relative hidden items-center px-4 py-2 text-sm font-semibold text-[var(--text-primary)] ring-1 ring-inset ring-[var(--border-color)] hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex" href="#">3</a>
-<a class="relative inline-flex items-center rounded-r-md px-2 py-2 text-[var(--text-secondary)] ring-1 ring-inset ring-[var(--border-color)] hover:bg-gray-50 focus:z-20 focus:outline-offset-0" href="#">
-<span class="sr-only">Next</span>
-<span aria-hidden="true" class="material-icons-outlined">chevron_right</span>
-</a>
-</nav>
-</div>
-</div>
-</main>
-</div>
-<script>
-  function redirectUser(event) {
-    event.preventDefault();
-    window.location.href = "profilePage.html"; // Redirect to profile page
-  }
-</script>
-<!-- Delete Confirmation Modal -->
- <div id="delete-modal" class="hidden fixed inset-0 z-50 flex min-h-screen items-center justify-center bg-gray-900/50">
-  <div class="bg-white rounded-lg p-6 shadow-lg max-w-sm w-full text-center">
-    <h2 class="text-lg font-semibold mb-4">Are you sure you want to delete?</h2>
-    <div class="flex justify-center gap-4"><button onclick="closeDeleteModal()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded">
-  No, Cancel
-</button>
 
-<!-- Delete Button -->
-<button onclick="confirmDelete()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
-  Yes, Delete
-</button>
+<body class="text-[var(--text-primary)]">
+  <div class="flex min-h-screen flex-col">
+    <header class="sticky top-0 z-10 w-full border-b border-[var(--border-color)] bg-[var(--card-background-color)] shadow-sm">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <div class="flex items-center gap-4">
+            <span class="material-icons-outlined text-3xl text-[var(--primary-color)]">health_and_safety</span>
+            <a href="HomePage.html"><h1 class="text-xl font-bold text-blue-600">HealthTrack</h1></a>
+          </div>
+          <nav class="hidden items-center gap-8 md:flex">
+            <a href="HomePage.html" class="text-sm font-medium hover:text-[var(--primary-color)]">Dashboard</a>
+            <a href="AppointmentsPage.html" class="text-sm font-medium hover:text-[var(--primary-color)]">Appointments</a>
+            <a href="MessagesPage.html" class="text-sm font-medium hover:text-[var(--primary-color)]">Messages</a>
+          </nav>
+          <div class="flex items-center gap-4">
+            <button class="btn-icon rounded-full p-2">
+              <span class="material-icons-outlined">notifications</span>
+            </button>
+            <button onclick="redirectUser(event)">
+              <img src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg" class="size-10 rounded-full" alt="User avatar" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow">
+      <div class="mx-auto max-w-4xl py-8 px-4 sm:px-6 lg:px-8">
+        <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
+          <h2 class="text-3xl font-bold tracking-tight">Health History</h2>
+          <button onclick="openDetailspage()" class="btn-primary flex items-center gap-2 rounded-md py-2 px-4 text-sm font-semibold shadow-sm">
+            <span class="material-icons-outlined text-base">add</span>
+            <span>Add New Entry</span>
+          </button>
+        </div>
+
+        <!-- ✅ Dynamic Health Records -->
+        <div id="health-records" class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:h-full before:w-0.5 before:bg-[var(--border-color)]">
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="delete-modal" class="hidden fixed inset-0 z-50 flex min-h-screen items-center justify-center bg-gray-900/50">
+    <div class="bg-white rounded-lg p-6 shadow-lg max-w-sm w-full text-center">
+      <h2 class="text-lg font-semibold mb-4">Are you sure you want to delete?</h2>
+      <div class="flex justify-center gap-4">
+        <button onclick="closeDeleteModal()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded">No, Cancel</button>
+        <button onclick="confirmDelete()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">Yes, Delete</button>
+      </div>
     </div>
   </div>
-</div>
-<script>
-  let deleteTarget = null;
 
-  function showDeleteModal(target = null) {
-    deleteTarget = target;
-    document.getElementById('delete-modal').classList.remove('hidden');
-    document.body.classList.add('overflow-hidden');
-  }
+  <!-- Scripts -->
+  <script>
+    function redirectUser(event) {
+      event.preventDefault();
+      window.location.href = "profilePage.html";
+    }
 
-  function closeDeleteModal() {
-    document.getElementById('delete-modal').classList.add('hidden');
-    document.body.classList.remove('overflow-hidden');
-  }
+    function openDetailspage() {
+      window.location.href = "add_details.html";
+    }
 
-  function confirmDelete() {
-    // Optional: use deleteTarget to remove or act on the clicked element
-    alert('Delete confirmed');
-    deleteTarget.remove();
-    closeDeleteModal();
-  }
-  function openDetailspage() {
-    window.location.href = "add_details.html"; // Redirect to add details page
-  }
-</script>
+    let deleteTarget = null;
 
+    function showDeleteModal(target = null) {
+      deleteTarget = target;
+      document.getElementById('delete-modal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
 
-</body></html>
+    function closeDeleteModal() {
+      document.getElementById('delete-modal').classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    function confirmDelete() {
+      if (deleteTarget) {
+        deleteTarget.remove(); // remove from DOM
+      }
+      closeDeleteModal();
+    }
+  </script>
+
+  <script>
+    async function loadHealthRecords() {
+      const token = localStorage.getItem('token');
+      if (!token) return alert('Not logged in');
+
+      try {
+        const response = await fetch('https://health-app-s67i.onrender.com/api/auth/my-records', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (!response.ok) throw new Error('Failed to fetch records');
+        const records = await response.json();
+
+        const container = document.getElementById('health-records');
+        container.innerHTML = '';
+
+        records.forEach(record => {
+          container.innerHTML += `
+            <div id="record-${record._id}" class="relative flex items-start gap-6">
+              <div class="z-10 flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--primary-color)] text-white">
+                <span class="material-icons-outlined">description</span>
+              </div>
+              <div class="flex-1 rounded-md border border-[var(--border-color)] bg-[var(--card-background-color)] p-4 shadow-sm">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-lg font-semibold">${record.disease}</p>
+                    <p class="text-sm text-[var(--text-secondary)]">${new Date(record.createdAt).toLocaleDateString()}</p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button class="btn-icon rounded-md p-1.5">
+                      <span class="material-icons-outlined text-xl">visibility</span>
+                    </button>
+                    <button class="btn-icon rounded-md p-1.5">
+                      <span class="material-icons-outlined text-xl">edit</span>
+                    </button>
+                    <button onclick="deleteHealthRecord('${record._id}')" class="btn-icon text-red-500 hover:text-red-700 rounded-md p-1.5">
+                      <span class="material-icons-outlined text-xl">delete</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      } catch (err) {
+        console.error('Error loading records:', err);
+        alert('Could not load health records');
+      }
+    }
+
+    async function deleteHealthRecord(recordId) {
+      const token = localStorage.getItem('token');
+      if (!token) return alert('User not logged in.');
+
+      if (!confirm("Are you sure you want to delete this record?")) return;
+
+      try {
+        const res = await fetch(`https://health-app-s67i.onrender.com/api/auth/record/${recordId}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.message || 'Failed to delete');
+
+        const card = document.getElementById(`record-${recordId}`);
+        if (card) card.remove();
+
+        alert('Record deleted!');
+      } catch (err) {
+        console.error('❌ Delete failed:', err);
+        alert('Error deleting record');
+      }
+    }
+
+    window.onload = loadHealthRecords;
+  </script>
+</body>
+</html>

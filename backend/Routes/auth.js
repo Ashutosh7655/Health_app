@@ -3,7 +3,7 @@ const router = express.Router();
 const ensureAuthenticated = require('../Middlewares/Auth.js');
 const bcrypt = require('bcryptjs');
 const User = require('../Models/User.js'); // ✅ Ensure this exists
-
+const HealthRecord = require('../Models/HealthRecord.js');
 // Register route
 router.post('/register', async (req, res) => {
   try {
@@ -103,8 +103,52 @@ console.log("✅ Updated user:", updatedUser);
     res.status(500).json({ message: "Server error" });
   }
 });
+// POST: Add a new health record
+router.post('/add', ensureAuthenticated, async (req, res) => {
+  try {
+    const newRecord = new HealthRecord({
+      userId: req.user.userId,
+      disease: req.body.disease,
+      symptoms: req.body.symptoms,
+      prescription: req.body.prescription,
+      scanImageUrl: req.body.scanImageUrl, // optional
+    });
 
+    await newRecord.save();
+    res.status(201).json({ message: 'Record saved', data: newRecord });
+  } catch (error) {
+    console.error('Error saving health record:', error.message);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
+// GET: Fetch all records of the logged-in user
+router.get('/my-records', ensureAuthenticated, async (req, res) => {
+  try {
+    const records = await HealthRecord.find({ userId: req.user.userId });
+    res.json(records);
+  } catch (error) {
+    console.error('Error fetching records:', error.message);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+// DELETE: Delete a health record by ID
+// DELETE /api/auth/record/:id
+router.delete('/record/:id', ensureAuthenticated, async (req, res) => {
+  try {
+    const deleted = await HealthRecord.findOneAndDelete({
+      _id: req.params.id,
+      userId: req.user.userId,
+    });
+
+    if (!deleted) return res.status(404).json({ message: 'Record not found' });
+
+    res.json({ message: 'Record deleted' });
+  } catch (err) {
+    console.error('❌ Delete error:', err.message);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 
 module.exports = router;
