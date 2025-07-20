@@ -173,6 +173,7 @@
 
       const result = await response.json();
       console.log("✅ Record added:", result);
+      window.location.href = "healthHistoryPage.html";
 
       document.getElementById('success-message').classList.remove('hidden');
       document.querySelector('form').reset();
