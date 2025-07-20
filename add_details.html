@@ -135,10 +135,51 @@
 </footer>
 </div>
 <script>
-  function saveRecord() {
-    // Show success message and reset form
-    document.getElementById('success-message').classList.remove('hidden');
-    document.querySelector('form').reset();
+  async function saveRecord() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please log in to add records.");
+      window.location.href = "index.html";
+      return;
+    }
+
+    const disease = document.getElementById('disease-injury').value;
+    const symptoms = document.getElementById('symptoms').value.split(',').map(s => s.trim());
+    const prescription = document.getElementById('prescription').value;
+    const fileInput = document.getElementById('file-upload');
+    let scanImageUrl = "";
+
+    // Optional: skip uploading files for now. Later you can integrate Cloudinary or backend file upload.
+    // Placeholder if needed:
+    if (fileInput.files.length > 0) {
+      scanImageUrl = "https://via.placeholder.com/150"; // Replace with real upload logic later
+    }
+
+    try {
+      const res = await fetch("https://health-app-s67i.onrender.com/api/health/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          disease,
+          symptoms,
+          prescription,
+          scanImageUrl,
+        }),
+      });
+
+      if (res.ok) {
+        document.getElementById('success-message').classList.remove('hidden');
+        document.querySelector('form').reset();
+      } else {
+        const error = await res.json();
+        alert("Error saving record: " + (error.message || "Unknown error"));
+      }
+    } catch (err) {
+      alert("Network error: " + err.message);
+    }
   }
 
   
