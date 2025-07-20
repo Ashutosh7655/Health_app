@@ -138,52 +138,51 @@
   async function saveRecord() {
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("Please log in to add records.");
-      window.location.href = "index.html";
+      alert("You must be logged in.");
       return;
     }
 
-    const disease = document.getElementById('disease-injury').value;
-    const symptoms = document.getElementById('symptoms').value.split(',').map(s => s.trim());
-    const prescription = document.getElementById('prescription').value;
-    const fileInput = document.getElementById('file-upload');
-    let scanImageUrl = "";
+    const disease = document.getElementById("disease-injury").value;
+    const symptoms = document.getElementById("symptoms").value;
+    const prescription = document.getElementById("prescription").value;
 
-    // Optional: skip uploading files for now. Later you can integrate Cloudinary or backend file upload.
-    // Placeholder if needed:
-    if (fileInput.files.length > 0) {
-      scanImageUrl = "https://via.placeholder.com/150"; // Replace with real upload logic later
-    }
+    // 📌 You can handle file upload later, for now we skip scanImageUrl
+    // const files = document.getElementById("file-upload").files;
+
+    const payload = {
+      disease,
+      symptoms,
+      prescription,
+      scanImageUrl: "" // Optional: Add later with file upload support
+    };
 
     try {
-      const res = await fetch("https://health-app-s67i.onrender.com/api/auth/add", {
+      const response = await fetch("https://health-app-s67i.onrender.com/api/auth/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({
-          disease,
-          symptoms,
-          prescription,
-          scanImageUrl,
-        }),
+        body: JSON.stringify(payload)
       });
 
-      if (res.ok) {
-        document.getElementById('success-message').classList.remove('hidden');
-        document.querySelector('form').reset();
-      } else {
-        const error = await res.json();
-        alert("Error saving record: " + (error.message || "Unknown error"));
+      if (!response.ok) {
+        const errMsg = await response.text();
+        throw new Error(errMsg || "Failed to add health record.");
       }
-    } catch (err) {
-      alert("Network error: " + err.message);
+
+      const result = await response.json();
+      console.log("✅ Record added:", result);
+
+      document.getElementById('success-message').classList.remove('hidden');
+      document.querySelector('form').reset();
+    } catch (error) {
+      console.error("❌ Error:", error.message);
+      alert("Failed to save record: " + error.message);
     }
   }
-
-  
 </script>
+
 <!-- cancel Confirmation Modal -->
  <div id="cancel-modal" class="hidden fixed inset-0 z-50 flex min-h-screen items-center justify-center bg-gray-900/50">
   <div class="bg-white rounded-lg p-6 shadow-lg max-w-sm w-full text-center">
