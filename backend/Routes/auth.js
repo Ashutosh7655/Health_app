@@ -132,8 +132,23 @@ router.get('/my-records', ensureAuthenticated, async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+// DELETE: Delete a health record by ID
+// DELETE /api/auth/record/:id
+router.delete('/record/:id', ensureAuthenticated, async (req, res) => {
+  try {
+    const deleted = await HealthRecord.findOneAndDelete({
+      _id: req.params.id,
+      userId: req.user.userId,
+    });
 
-module.exports = router;
+    if (!deleted) return res.status(404).json({ message: 'Record not found' });
+
+    res.json({ message: 'Record deleted' });
+  } catch (err) {
+    console.error('❌ Delete error:', err.message);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 
 module.exports = router;
